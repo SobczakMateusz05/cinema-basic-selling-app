@@ -1,0 +1,19 @@
+@use '../../sass/variables.scss' as variable;
+
+.menu {
+    &--mainWrapper {
+        width: 260px;
+        @include variable.flex-container(column, center, space-between);
+        padding: 50px 0;
+
+        &__logoImage {
+            width: 130px;
+            height: auto;
+            border-radius: 35px;
+        }
+        &__navigation {
+            @include variable.flex-container(column, center, center);
+            gap: 25px;
+        }
+    }
+}

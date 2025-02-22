@@ -1,0 +1,16 @@
+@use '../../sass/variables.scss' as variable;
+
+.login {
+    &--mainWrapper {
+        width: 100%;
+        height: 100%;
+        @include variable.flex-container(column, center, center);
+        gap: 40px;
+
+        &__logoImage {
+            border-radius: 40px;
+            width: 175px;
+            height: auto;
+        }
+    }
+}

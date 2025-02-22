@@ -1,0 +1,28 @@
+@use '../../sass/variables.scss' as variable;
+
+.menuItem {
+    &--mainWrapper {
+        width: 60px;
+        color: white;
+        gap: 5px;
+        @include variable.flex-container(column, center, center);
+        background: none;
+        user-select: none;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s ease;
+        text-decoration: underline;
+        text-underline-offset: 5px;
+        text-decoration-color: transparent;
+
+        &__icon {
+            width: 100%;
+            height: auto;
+        }
+
+        &:hover {
+            color: variable.$white-hover;
+            text-decoration-color: variable.$white-hover;
+        }
+    }
+}

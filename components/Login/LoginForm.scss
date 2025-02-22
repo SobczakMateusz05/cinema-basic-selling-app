@@ -1,0 +1,46 @@
+@use '../../sass/variables.scss' as variable;
+
+.loginForm {
+    &--mainWrapper {
+        @include variable.flex-container(column, center, center);
+        gap: 25px;
+        &--inputWrapper {
+            position: relative;
+            &__input {
+                padding: 15px;
+                border: 1px solid variable.$white;
+                border-radius: 10px;
+                color: variable.$white;
+                font-size: 1.1em;
+                background: none;
+                appearance: none;
+                -moz-appearance: textfield;
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                }
+            }
+            &__label {
+                color: variable.$white;
+                position: absolute;
+                left: 20px;
+                top: -10px;
+                background: variable.$black;
+                padding: 0 5px;
+            }
+        }
+        &__signInBtn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: variable.$white;
+            color: variable.$black;
+            cursor: pointer;
+            transition: 0.3s ease;
+
+            &:hover {
+                background: variable.$white-hover;
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@use '../../../sass/variables.scss' as variable;
+
+.panel {
+    &--mainWrapper {
+        width: 100%;
+        height: 100%;
+        @include variable.flex-container(row, space-between, center);
+    }
+    &--right {
+        border-radius: 30px;
+        background: variable.$white;
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "extends": ["airbnb", "airbnb-typescript", "next"],
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+        "jsx-a11y/label-has-associated-control": [
+            "error",
+            {
+                "controlComponents": ["Input"]
+            }
+        ],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "operator-linebreak": "off",
+        "react/jsx-curly-newline": "off",
+        "import/no-cycle": "off",
+        "linebreak-style": "off",
+        "implicit-arrow-linebreak": "off",
+        "comma-dangle": "off",
+        "no-unexpected-multiline": "off",
+        "prefer-template": "off",
+        "object-property-newline": "off",
+        "eslint-plugin-vue/comma-dangle": "off",
+        "eslint-disable @typescript-eslint/indent": "off",
+        "object-curly-newline": "off",
+        "@typescript-eslint/comma-dangle": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/indent": "off",
+        "arrow-body-style": "off",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "off"
+    }
+}

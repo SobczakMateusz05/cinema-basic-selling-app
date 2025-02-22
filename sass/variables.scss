@@ -1,0 +1,12 @@
+$black: #1e1e1e;
+$white: #ececec;
+
+$black-hover: #414040;
+$white-hover: #d3d2d2;
+
+@mixin flex-container($direction, $algin, $justify) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $algin;
+    justify-content: $justify;
+}
