@@ -42,5 +42,16 @@
                 background: variable.$white-hover;
             }
         }
+
+        &__message {
+            color: variable.$green;
+            padding: 5px;
+            max-width: 227px;
+            text-align: center;
+
+            &__error {
+                color: variable.$red;
+            }
+        }
     }
 }

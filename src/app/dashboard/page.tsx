@@ -4,9 +4,9 @@ import Menu from 'components/Menu/Menu';
 
 export default function Panel() {
     return (
-        <main className="panel--mainWrapper">
+        <main className="dashboard--mainWrapper">
             <Menu />
-            <div className="panel--right"></div>
+            <div className="dashboard--right"></div>
         </main>
     );
 }

@@ -1,0 +1,30 @@
+@use '../../../sass/variables.scss' as variable;
+
+.userAdd {
+    &--requirment {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        border: 1px solid variable.$white;
+        border-radius: 15px;
+        padding: 15px 35px;
+
+        &__title {
+            color: variable.$white;
+            padding: 7px 0;
+            font-size: 1.1em;
+        }
+
+        &__conditions {
+            color: variable.$white;
+            font-size: 0.7em;
+            padding: 5px 0;
+            list-style: square;
+        }
+
+        &__subconditions {
+            padding-left: 15px;
+            list-style: disc;
+        }
+    }
+}

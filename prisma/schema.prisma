@@ -8,7 +8,7 @@ datasource db {
 }
 
 model filmy {
-  id       Int       @id(map: "PK_filmy_1")
+  id       Int       @id(map: "PK_filmy_1") @default(autoincrement())
   tytul    String?   @db.NVarChar(50)
   premiera DateTime? @db.DateTime
   bilety   Float?    @db.Money
@@ -16,14 +16,14 @@ model filmy {
 }
 
 model okulary_3d {
-  id                Int                 @id(map: "PK_okulary_3d")
+  id                Int                 @id(map: "PK_okulary_3d") @default(autoincrement())
   nazwa             String?             @db.VarChar(50)
   cena              Float?              @db.Money
   sprzedane_okulary sprzedane_okulary[]
 }
 
 model pracownicy {
-  id                  Int                   @id(map: "PK_pracownicy")
+  id                  Int                   @id(map: "PK_pracownicy") @default(autoincrement())
   imie                String?               @db.VarChar(50)
   nazwisko            String?               @db.VarChar(50)
   pesel               String?               @db.Char(11)
@@ -34,14 +34,14 @@ model pracownicy {
 }
 
 model przekaski {
-  id                  Int                   @id(map: "PK_przekaski_1")
+  id                  Int                   @id(map: "PK_przekaski_1") @default(autoincrement())
   nazwa               String?               @db.VarChar(50)
   cena                Float?                @db.Money
   zamowione_przekaski zamowione_przekaski[]
 }
 
 model rozmiar_przekaski {
-  id                  Int                   @id(map: "PK_rozmiar_przekaski")
+  id                  Int                   @id(map: "PK_rozmiar_przekaski") @default(autoincrement())
   rozmiar             String?               @db.VarChar(50)
   mnoznik_ceny        Float?
   zamowione_przekaski zamowione_przekaski[]
@@ -54,7 +54,7 @@ model sale {
 }
 
 model seanse {
-  id           Int            @id(map: "PK_seanse")
+  id           Int            @id(map: "PK_seanse") @default(autoincrement())
   id_filmu     Int?
   data         DateTime?      @db.Date
   numer_sali   Int?
@@ -64,7 +64,7 @@ model seanse {
 }
 
 model sprzedane_okulary {
-  id            Int           @id(map: "PK_sprzedane_okulary")
+  id            Int           @id(map: "PK_sprzedane_okulary") @default(autoincrement())
   id_okularow   Int?
   id_uczestnika Int?
   id_pracownika Int?
@@ -85,7 +85,7 @@ model sysdiagrams {
 }
 
 model uczestnictwo {
-  id                  Int                   @id(map: "PK_uczestnictwo_1")
+  id                  Int                   @id(map: "PK_uczestnictwo_1") @default(autoincrement())
   imie                String?               @db.NVarChar(40)
   nazwisko            String?               @db.NVarChar(30)
   id_seansu           Int?
@@ -95,15 +95,15 @@ model uczestnictwo {
 }
 
 model uzytkownicy {
-  id            Int         @id(map: "PK_uzytkownicy")
-  login         String      @db.VarChar(50)
+  id            Int         @id(map: "PK__uzytkown__8215F588EEE9E495") @default(autoincrement())
+  login         String      @unique @db.VarChar(50)
   haslo         String      @db.VarChar(255)
   id_pracownika Int?
   pracownicy    pracownicy? @relation(fields: [id_pracownika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_uzytkownicy_pracownicy")
 }
 
 model zamowione_przekaski {
-  id                Int                @id(map: "PK_zamowione_przekaski")
+  id                Int                @id(map: "PK_zamowione_przekaski") @default(autoincrement())
   id_przekaski      Int?
   id_uczestnika     Int?
   id_rozmiaru       Int?
