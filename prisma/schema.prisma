@@ -7,71 +7,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model filmy {
-  id       Int       @id(map: "PK_filmy_1") @default(autoincrement())
-  tytul    String?   @db.NVarChar(50)
-  premiera DateTime? @db.DateTime
-  bilety   Float?    @db.Money
-  seanse   seanse[]
+model film {
+  id       Int       @id(map: "PK_film_1") @default(autoincrement())
+  title    String?   @db.VarChar(50)
+  premiere DateTime? @db.DateTime
+  ticket   Float?    @db.Money
+  showing   showing[]
 }
 
-model okulary_3d {
-  id                Int                 @id(map: "PK_okulary_3d") @default(autoincrement())
-  nazwa             String?             @db.VarChar(50)
-  cena              Float?              @db.Money
-  sprzedane_okulary sprzedane_okulary[]
+model glasses_3d {
+  id                Int                 @id(map: "PK_glasses_3d") @default(autoincrement())
+  name             String?             @db.VarChar(50)
+  price              Float?              @db.Money
+  sold_glasses sold_glasses[]
 }
 
-model pracownicy {
-  id                  Int                   @id(map: "PK_pracownicy") @default(autoincrement())
-  imie                String?               @db.VarChar(50)
-  nazwisko            String?               @db.VarChar(50)
-  pesel               String?               @db.Char(11)
-  pensja              Float?                @db.Money
-  sprzedane_okulary   sprzedane_okulary[]
-  uzytkownicy         uzytkownicy[]
-  zamowione_przekaski zamowione_przekaski[]
+model employee {
+  id                  Int                   @id(map: "PK_employee") @default(autoincrement())
+  name                String?               @db.VarChar(50)
+  surname            String?               @db.VarChar(50)
+  salary              Float?                @db.Money
+  sold_glasses   sold_glasses[]
+  users        users[]
+  ordered_snack ordered_snack[]
 }
 
-model przekaski {
-  id                  Int                   @id(map: "PK_przekaski_1") @default(autoincrement())
-  nazwa               String?               @db.VarChar(50)
-  cena                Float?                @db.Money
-  zamowione_przekaski zamowione_przekaski[]
+model snack {
+  id                  Int                   @id(map: "PK_snack_1") @default(autoincrement())
+  name              String?               @db.VarChar(50)
+  price                Float?                @db.Money
+  ordered_snack ordered_snack[]
 }
 
-model rozmiar_przekaski {
-  id                  Int                   @id(map: "PK_rozmiar_przekaski") @default(autoincrement())
-  rozmiar             String?               @db.VarChar(50)
-  mnoznik_ceny        Float?
-  zamowione_przekaski zamowione_przekaski[]
+model snack_size {
+  id                  Int                   @id(map: "PK_snack_size") @default(autoincrement())
+  size             String?               @db.VarChar(50)
+  price_multiplier       Float?
+  ordered_snack ordered_snack[]
 }
 
-model sale {
-  numer         Int      @id(map: "PK_sale")
-  liczba_miejsc Int?
-  seanse        seanse[]
+model room {
+  number         Int      @id(map: "PK_room")
+  number_of_seats Int?
+  showing        showing[]
 }
 
-model seanse {
-  id           Int            @id(map: "PK_seanse") @default(autoincrement())
-  id_filmu     Int?
-  data         DateTime?      @db.Date
-  numer_sali   Int?
-  filmy        filmy?         @relation(fields: [id_filmu], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_seanse_filmy")
-  sale         sale?          @relation(fields: [numer_sali], references: [numer], onDelete: NoAction, onUpdate: NoAction, map: "FK_seanse_sale")
-  uczestnictwo uczestnictwo[]
+model showing {
+  id           Int            @id(map: "PK_showing") @default(autoincrement())
+  id_film     Int?
+  date         DateTime?      @db.Date
+  room_number   Int?
+  film       film?         @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_showing_film")
+  room         room?          @relation(fields: [room_number], references: [number], onDelete: NoAction, onUpdate: NoAction, map: "FK_showing_room")
+  participation participation[]
 }
 
-model sprzedane_okulary {
-  id            Int           @id(map: "PK_sprzedane_okulary") @default(autoincrement())
-  id_okularow   Int?
-  id_uczestnika Int?
-  id_pracownika Int?
-  data          DateTime?     @db.Date
-  okulary_3d    okulary_3d?   @relation(fields: [id_okularow], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sprzedane_okulary_okulary_3d")
-  pracownicy    pracownicy?   @relation(fields: [id_pracownika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sprzedane_okulary_pracownicy")
-  uczestnictwo  uczestnictwo? @relation(fields: [id_uczestnika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sprzedane_okulary_uczestnictwo1")
+model sold_glasses {
+  id            Int           @id(map: "PK_sold_glasses") @default(autoincrement())
+  id_glasses  Int?
+  id_participation Int?
+  id_employee Int?
+  date          DateTime?     @db.Date
+  glasses_3d    glasses_3d?   @relation(fields: [id_glasses], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_glasses_3d")
+  employee    employee?   @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_employee")
+  participation  participation? @relation(fields: [id_participation], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_participation")
 }
 
 model sysdiagrams {
@@ -84,33 +83,33 @@ model sysdiagrams {
   @@unique([principal_id, name], map: "UK_principal_name")
 }
 
-model uczestnictwo {
-  id                  Int                   @id(map: "PK_uczestnictwo_1") @default(autoincrement())
-  imie                String?               @db.NVarChar(40)
-  nazwisko            String?               @db.NVarChar(30)
-  id_seansu           Int?
-  sprzedane_okulary   sprzedane_okulary[]
-  seanse              seanse?               @relation(fields: [id_seansu], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_uczestnictwo_seanse")
-  zamowione_przekaski zamowione_przekaski[]
+model participation {
+  id                  Int                   @id(map: "PK_participation_1") @default(autoincrement())
+  name               String?               @db.VarChar(40)
+  surname            String?               @db.VarChar(50)
+  id_showing           Int?
+  sold_glasses   sold_glasses[]
+  showing              showing?               @relation(fields: [id_showing], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_participation_showing")
+  ordered_snack ordered_snack[]
 }
 
-model uzytkownicy {
-  id            Int         @id(map: "PK__uzytkown__8215F588EEE9E495") @default(autoincrement())
+model users {
+  id            Int         @id(map: "PK_users") @default(autoincrement())
   login         String      @unique @db.VarChar(50)
-  haslo         String      @db.VarChar(255)
-  id_pracownika Int?
-  pracownicy    pracownicy? @relation(fields: [id_pracownika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_uzytkownicy_pracownicy")
+  password         String      @db.VarChar(255)
+  id_employee Int?
+  employee    employee? @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_users_employee")
 }
 
-model zamowione_przekaski {
-  id                Int                @id(map: "PK_zamowione_przekaski") @default(autoincrement())
-  id_przekaski      Int?
-  id_uczestnika     Int?
-  id_rozmiaru       Int?
-  data              String?            @db.NChar(10)
-  id_pracownika     Int?
-  pracownicy        pracownicy?        @relation(fields: [id_pracownika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_zamowione_przekaski_pracownicy")
-  przekaski         przekaski?         @relation(fields: [id_przekaski], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_zamowione_przekaski_przekaski1")
-  rozmiar_przekaski rozmiar_przekaski? @relation(fields: [id_rozmiaru], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_zamowione_przekaski_rozmiar_przekaski")
-  uczestnictwo      uczestnictwo?      @relation(fields: [id_uczestnika], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_zamowione_przekaski_uczestnictwo1")
+model ordered_snack {
+  id                Int                @id(map: "PK_ordered_snack") @default(autoincrement())
+  id_snack     Int?
+  id_participation     Int?
+  id_size       Int?
+  date              String?            @db.NChar(10)
+  id_employee     Int?
+  employee        employee?        @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_employee")
+  snack         snack?         @relation(fields: [id_snack], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack1")
+  snack_size snack_size? @relation(fields: [id_size], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack_size")
+  participation      participation?      @relation(fields: [id_participation], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_participation1")
 }

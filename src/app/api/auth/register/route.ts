@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { HashPassword } from '../../../../utils/auth';
 
 const prisma = new PrismaClient();
+
 // eslint-disable-next-line import/prefer-default-export
 export async function POST(req: Request) {
     if (req.method !== 'POST') {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
     }
 
     try {
-        const existingUser = await prisma.uzytkownicy.findUnique({
+        const existingUser = await prisma.users.findUnique({
             where: { login },
         });
         if (existingUser) {
@@ -33,8 +34,8 @@ export async function POST(req: Request) {
 
         const hashedPassword = await HashPassword(password);
 
-        await prisma.uzytkownicy.create({
-            data: { login, haslo: hashedPassword },
+        await prisma.users.create({
+            data: { login, password: hashedPassword },
         });
 
         return NextResponse.json(
