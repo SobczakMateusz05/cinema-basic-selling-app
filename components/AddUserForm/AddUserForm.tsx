@@ -54,20 +54,17 @@ export default function UserAddForm() {
 
             const data = await res.json();
 
-            setStatus((prevState) => ({
-                ...prevState,
-                message: data.message,
-            }));
-
             if (res.ok) {
                 setStatus((prevState) => ({
                     ...prevState,
                     isSucces: true,
+                    message: data.message,
                 }));
             } else {
                 setStatus((prevState) => ({
                     ...prevState,
                     isSucces: false,
+                    message: data.message,
                 }));
             }
         } else if (
