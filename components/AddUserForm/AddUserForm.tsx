@@ -2,18 +2,14 @@
 
 import React, { useState, FormEvent } from 'react';
 
-interface FormDataInterface {
-    login: string;
-    password: string;
-}
-
-interface StatusInterface {
-    isSucces: Boolean;
-    message: string;
-}
+import {
+    StatusInterface,
+    validateField,
+    LoginFormDataInterface,
+} from '@/utils/forms';
 
 export default function UserAddForm() {
-    const [formData, setFormData] = useState<FormDataInterface>({
+    const [formData, setFormData] = useState<LoginFormDataInterface>({
         login: '',
         password: '',
     });
@@ -25,10 +21,6 @@ export default function UserAddForm() {
     const passwordPattern =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const loginPattern = /^[a-zA-Z0-9_-]{3,20}$/;
-
-    const validateField = (pattern: RegExp, value: string) => {
-        return pattern.test(value);
-    };
 
     const handleChange = (
         fieldName: string,

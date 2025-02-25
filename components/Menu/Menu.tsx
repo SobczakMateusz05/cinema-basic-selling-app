@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 import Logo from 'public/common/logo.png';
 import LogoutIcon from 'public/specific/menu/logout-icon.png';
@@ -13,12 +16,16 @@ import MenuItem, { MenuItemProps } from './MenuItem';
 
 export default function Menu() {
     const menuItem: MenuItemProps[] = [
-        { id: 0, icon: SpectatorIcon, text: 'Spectators' },
-        { id: 1, icon: SnackIcon, text: 'Snacks' },
-        { id: 2, icon: GlassesIcon, text: 'Glasses' },
-        { id: 3, icon: ShowingIcon, text: 'Showings' },
-        { id: 4, icon: FilmIcon, text: 'Films' },
+        { id: 0, icon: SpectatorIcon, text: 'Spectators', onClick: undefined },
+        { id: 1, icon: SnackIcon, text: 'Snacks', onClick: undefined },
+        { id: 2, icon: GlassesIcon, text: 'Glasses', onClick: undefined },
+        { id: 3, icon: ShowingIcon, text: 'Showings', onClick: undefined },
+        { id: 4, icon: FilmIcon, text: 'Films', onClick: undefined },
     ];
+    const logOut = () => {
+        localStorage.removeItem('token');
+        redirect('/');
+    };
     return (
         <section className="menu--mainWrapper">
             <Image
@@ -33,10 +40,11 @@ export default function Menu() {
                         id={itemProps.id}
                         icon={itemProps.icon}
                         text={itemProps.text}
+                        onClick={itemProps.onClick}
                     />
                 ))}
             </nav>
-            <MenuItem id={5} icon={LogoutIcon} text="Logout" />
+            <MenuItem id={5} icon={LogoutIcon} text="Logout" onClick={logOut} />
         </section>
     );
 }

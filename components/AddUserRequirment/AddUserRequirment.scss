@@ -1,6 +1,6 @@
-@use '../../../sass/variables.scss' as variable;
+@use '../../sass/variables.scss' as variable;
 
-.userAdd {
+.addUser {
     &--requirment {
         position: absolute;
         bottom: 50px;
@@ -25,6 +25,24 @@
         &__subconditions {
             padding-left: 15px;
             list-style: disc;
+        }
+    }
+
+    &--destinationBtn {
+        display: block;
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        padding: 12px 24px;
+        border-radius: 10px;
+        background: variable.$white;
+        color: variable.$black;
+        cursor: pointer;
+        transition: 0.3s ease;
+        text-decoration: none;
+
+        &:hover {
+            background: variable.$white-hover;
         }
     }
 }
