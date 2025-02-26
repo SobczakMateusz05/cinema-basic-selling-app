@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 
 import Logo from 'public/common/logo.png';
 import LogoutIcon from 'public/specific/menu/logout-icon.png';
@@ -22,9 +21,21 @@ export default function Menu() {
         { id: 3, icon: ShowingIcon, text: 'Showings', onClick: undefined },
         { id: 4, icon: FilmIcon, text: 'Films', onClick: undefined },
     ];
-    const logOut = () => {
-        localStorage.removeItem('token');
-        redirect('/');
+
+    const logOut = async () => {
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                localStorage.removeItem('token');
+
+                window.location.href = '/';
+            }
+        } catch (error) {
+            /* empty */
+        }
     };
     return (
         <section className="menu--mainWrapper">

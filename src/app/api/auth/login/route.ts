@@ -1,6 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
-import { verifyPassword, signToken } from '@/utils/auth';
+import {
+    verifyPassword,
+    signAccessToken,
+    signRefreshToken,
+} from '@/utils/auth';
 
 const prisma = new PrismaClient();
 
@@ -44,13 +48,23 @@ export async function POST(req: Request) {
 
         const loggedUser = { id: user.id, login: user.login };
 
-        const token = signToken(loggedUser);
+        const accessToken = signAccessToken(loggedUser);
+        const refreshToken = signRefreshToken(loggedUser);
 
-        return NextResponse.json({
-            token,
-            status: 200,
-            message: isValidPassword,
+        const response = NextResponse.json(
+            { accessToken, status: 200, message: 'Logged in successfully' },
+            { status: 200 }
+        );
+
+        response.cookies.set('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Ustaw na true w produkcji (HTTPS)
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 24 * 7, // 7 dni
+            path: '/',
         });
+
+        return response;
     } catch (error) {
         return NextResponse.json(
             { message: 'Server error while logging in', error },
