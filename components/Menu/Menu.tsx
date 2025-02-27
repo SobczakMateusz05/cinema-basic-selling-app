@@ -13,15 +13,15 @@ import SpectatorIcon from 'public/specific/menu/spectator-icon.png';
 
 import MenuItem, { MenuItemProps } from './MenuItem';
 
-export default function Menu() {
-    const menuItem: MenuItemProps[] = [
-        { id: 0, icon: SpectatorIcon, text: 'Spectators', onClick: undefined },
-        { id: 1, icon: SnackIcon, text: 'Snacks', onClick: undefined },
-        { id: 2, icon: GlassesIcon, text: 'Glasses', onClick: undefined },
-        { id: 3, icon: ShowingIcon, text: 'Showings', onClick: undefined },
-        { id: 4, icon: FilmIcon, text: 'Films', onClick: undefined },
-    ];
+export const menuItem: MenuItemProps[] = [
+    { id: 0, icon: SpectatorIcon, text: 'Spectators', onClick: undefined },
+    { id: 1, icon: SnackIcon, text: 'Snacks', onClick: undefined },
+    { id: 2, icon: GlassesIcon, text: 'Glasses', onClick: undefined },
+    { id: 3, icon: ShowingIcon, text: 'Showings', onClick: undefined },
+    { id: 4, icon: FilmIcon, text: 'Films', onClick: undefined },
+];
 
+export default function Menu() {
     const logOut = async () => {
         try {
             const response = await fetch('/api/auth/logout', {

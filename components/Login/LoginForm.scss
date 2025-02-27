@@ -6,7 +6,9 @@
         gap: 25px;
         &--inputWrapper {
             position: relative;
+            width: 100%;
             &__input {
+                width: 100%;
                 padding: 15px;
                 border: 1px solid variable.$white;
                 border-radius: 10px;
@@ -27,6 +29,13 @@
                 top: -10px;
                 background: variable.$black;
                 padding: 0 5px;
+            }
+            &__arrow {
+                position: absolute;
+                right: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
             }
         }
         &__signInBtn {

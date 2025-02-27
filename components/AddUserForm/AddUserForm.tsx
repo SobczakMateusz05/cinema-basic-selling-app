@@ -1,6 +1,9 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
+import Image from 'next/image';
+
+import Arrow from 'public/common/arrow.png';
 
 import {
     StatusInterface,
@@ -24,7 +27,7 @@ export default function UserAddForm() {
 
     const handleChange = (
         fieldName: string,
-        event: React.ChangeEvent<HTMLInputElement>
+        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         const targetField = event.target;
 
@@ -131,6 +134,28 @@ export default function UserAddForm() {
                 >
                     Password
                 </label>
+            </div>
+            <div className="loginForm--mainWrapper--inputWrapper">
+                <select
+                    onChange={(event) => {
+                        handleChange('password', event);
+                    }}
+                    className="loginForm--mainWrapper--inputWrapper__input paragraph"
+                    id="employee"
+                >
+                    <option value="-1">Choose employee</option>
+                </select>
+                <label
+                    htmlFor="employee"
+                    className="loginForm--mainWrapper--inputWrapper__label paragraph"
+                >
+                    Pracownik
+                </label>
+                <Image
+                    src={Arrow}
+                    alt="arrow"
+                    className="loginForm--mainWrapper--inputWrapper__arrow"
+                />
             </div>
             <button
                 type="submit"
