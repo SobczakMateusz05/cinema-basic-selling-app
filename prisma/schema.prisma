@@ -23,7 +23,7 @@ model glasses_3d {
 }
 
 model employee {
-  id            Int             @id(map: "PK_employee") @default(autoincrement())
+  id            Int             @id(map: "PK_employee") @default(autoincrement()) @unique
   name          String?         @db.VarChar(50)
   surname       String?         @db.VarChar(50)
   salary        Float?          @db.Money

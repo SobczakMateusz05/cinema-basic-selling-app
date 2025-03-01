@@ -7,7 +7,7 @@ export async function POST() {
         status: 200,
     });
 
-    response.cookies.set('refreshToken', '', {
+    response.cookies.set('accessToken', '', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',

@@ -37,12 +37,12 @@ export default function LoginForm() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
+                credentials: 'include',
             });
 
             const data = await res.json();
 
             if (res.ok && data.status === 200) {
-                localStorage.setItem('token', data.accessToken);
                 redirect('/dashboard');
             } else {
                 setStatus((prevState) => ({

@@ -16,5 +16,10 @@
             border-radius: 20px;
             background: variable.$black;
         }
+
+        &__title {
+            text-align: center;
+            font-family: var(--font-raleway);
+        }
     }
 }

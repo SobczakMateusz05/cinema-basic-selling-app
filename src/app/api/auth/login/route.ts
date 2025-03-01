@@ -42,7 +42,11 @@ export async function POST(req: Request) {
             });
         }
 
-        const loggedUser = { id: user.id, login: user.login };
+        const loggedUser = {
+            id: user.id,
+            login: user.login,
+            idEmployee: user.id_employee,
+        };
 
         const accessToken = signAccessToken(loggedUser);
 
