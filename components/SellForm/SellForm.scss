@@ -1,9 +1,10 @@
 @use '../../sass/variables.scss' as variable;
 
-.loginForm {
+.sellForm {
     &--mainWrapper {
         @include variable.flex-container(column, center, center);
         gap: 25px;
+        height: 100%;
         &--inputWrapper {
             position: relative;
             width: 100%;
@@ -11,9 +12,9 @@
             &__select {
                 width: 100%;
                 padding: 15px;
-                border: 1px solid variable.$white;
+                border: 1px solid variable.$black;
                 border-radius: 10px;
-                color: variable.$white;
+                color: variable.$black;
                 font-size: 1.1em;
                 background: none;
                 appearance: none;
@@ -44,23 +45,23 @@
                     width: 100%;
                     text-align: start;
                     padding: 7px;
-                    background: variable.$black;
-                    color: variable.$white;
-                    border: 1px solid variable.$white;
+                    background: variable.$white;
+                    color: variable.$black;
+                    border: 1px solid variable.$black;
                     cursor: pointer;
                     transition: 0.3s ease;
 
                     &:hover {
-                        background: variable.$black-hover;
+                        background: variable.$white-hover;
                     }
                 }
             }
             &__label {
-                color: variable.$white;
+                color: variable.$black;
                 position: absolute;
                 left: 20px;
                 top: -10px;
-                background: variable.$black;
+                background: variable.$white;
                 padding: 0 5px;
             }
             &__arrow {
@@ -71,17 +72,17 @@
                 pointer-events: none;
             }
         }
-        &__signInBtn {
+        &__button {
             width: 100%;
             padding: 15px;
             border-radius: 10px;
-            background: variable.$white;
-            color: variable.$black;
+            background: variable.$black;
+            color: variable.$white;
             cursor: pointer;
             transition: 0.3s ease;
 
             &:hover {
-                background: variable.$white-hover;
+                background: variable.$black-hover;
             }
         }
 

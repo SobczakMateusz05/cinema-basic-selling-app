@@ -9,7 +9,11 @@ import LogoutIcon from 'public/specific/menu/logout-icon.png';
 import MenuItem from './MenuItem';
 import { MenuItemParms } from './MenuItemsParms';
 
-export default function Menu() {
+interface MenuInterface {
+    handleMenuChange: (value: number) => void;
+}
+
+export default function Menu({ handleMenuChange }: MenuInterface) {
     const logOut = async () => {
         try {
             const response = await fetch('/api/auth/logout', {
@@ -31,6 +35,7 @@ export default function Menu() {
                 src={Logo}
                 alt="cinema logo"
                 className="menu--mainWrapper__logoImage"
+                onClick={() => handleMenuChange(0)}
             />
             <nav className="menu--mainWrapper__navigation">
                 {MenuItemParms.map((itemProps) => (
@@ -39,11 +44,11 @@ export default function Menu() {
                         id={itemProps.id}
                         icon={itemProps.icon}
                         text={itemProps.text}
-                        onClick={itemProps.onClick}
+                        onClick={() => handleMenuChange(itemProps.id)}
                     />
                 ))}
             </nav>
-            <MenuItem id={5} icon={LogoutIcon} text="Logout" onClick={logOut} />
+            <MenuItem id={4} icon={LogoutIcon} text="Logout" onClick={logOut} />
         </section>
     );
 }

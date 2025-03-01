@@ -1,7 +1,34 @@
+@use './variables.scss' as variable;
+
 .paragraph {
     font-size: 1rem;
     line-height: clamp(1rem, 10px, 1.4rem);
     letter-spacing: 2px;
     font-weight: 400;
     font-family: var(--font-raleway);
+}
+
+.disable {
+    display: none !important;
+}
+
+.title {
+    text-align: center;
+    font-family: var(--font-raleway);
+    font-size: 2.5em;
+}
+
+/* animation from https://css-loaders.com/spinner/ */
+.loader {
+    width: 150px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 15px solid;
+    border-color: variable.$black transparent;
+    animation: l1 1s infinite;
+}
+@keyframes l1 {
+    to {
+        transform: rotate(0.5turn);
+    }
 }

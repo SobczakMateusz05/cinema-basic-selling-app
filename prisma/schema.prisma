@@ -9,68 +9,68 @@ datasource db {
 
 model film {
   id       Int       @id(map: "PK_film_1") @default(autoincrement())
-  title    String?   @db.VarChar(50)
-  premiere DateTime? @db.DateTime
-  ticket   Float?    @db.Money
+  title    String    @db.VarChar(50)
+  premiere DateTime  @db.DateTime
+  ticket   Float     @db.Money
   showing  showing[]
 }
 
 model glasses_3d {
   id           Int            @id(map: "PK_glasses_3d") @default(autoincrement())
-  name         String?        @db.VarChar(50)
-  price        Float?         @db.Money
+  name         String         @db.VarChar(50)
+  price        Float          @db.Money
   sold_glasses sold_glasses[]
 }
 
 model employee {
-  id            Int             @id(map: "PK_employee") @default(autoincrement()) @unique
-  name          String?         @db.VarChar(50)
-  surname       String?         @db.VarChar(50)
-  salary        Float?          @db.Money
+  id            Int             @id(map: "PK_employee") @default(autoincrement())
+  name          String         @db.VarChar(50)
+  surname       String         @db.VarChar(50)
+  salary        Float          @db.Money
   ordered_snack ordered_snack[]
+  participation participation[]
   sold_glasses  sold_glasses[]
   users         users[]
 }
 
 model snack {
   id            Int             @id(map: "PK_snack_1") @default(autoincrement())
-  name          String?         @db.VarChar(50)
-  price         Float?          @db.Money
+  name          String          @db.VarChar(50)
+  price         Float           @db.Money
   ordered_snack ordered_snack[]
 }
 
 model snack_size {
   id               Int             @id(map: "PK_snack_size") @default(autoincrement())
-  size             String?         @db.VarChar(50)
-  price_multiplier Float?
+  size             String          @db.VarChar(50)
+  price_multiplier Float
   ordered_snack    ordered_snack[]
 }
 
 model room {
   number          Int       @id(map: "PK_room")
-  number_of_seats Int?
+  number_of_seats Int
   showing         showing[]
 }
 
 model showing {
   id            Int             @id(map: "PK_showing") @default(autoincrement())
-  id_film       Int?
-  date          DateTime?       @db.Date
-  room_number   Int?
+  id_film       Int
+  date          DateTime        @db.Date
+  room_number   Int
+  aviable_seats Int
   participation participation[]
-  film          film?           @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_showing_film")
-  room          room?           @relation(fields: [room_number], references: [number], onDelete: NoAction, onUpdate: NoAction, map: "FK_showing_room")
+  film          film            @relation(fields: [id_film], references: [id], onUpdate: NoAction, map: "FK_showing_film")
+  room          room            @relation(fields: [room_number], references: [number], onUpdate: NoAction, map: "FK_showing_room")
 }
 
 model sold_glasses {
-  id               Int            @id(map: "PK_sold_glasses") @default(autoincrement())
-  id_glasses       Int?
-  id_participation Int?
-  id_employee      Int?
-  date             DateTime?      @db.Date
-  employee         employee?      @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_employee")
-  glasses_3d       glasses_3d?    @relation(fields: [id_glasses], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_glasses_3d")
-  participation    participation? @relation(fields: [id_participation], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sold_glasses_participation")
+  id          Int        @id(map: "PK_sold_glasses") @default(autoincrement())
+  id_glasses  Int
+  id_employee Int
+  date        DateTime   @db.Date
+  employee    employee   @relation(fields: [id_employee], references: [id], onUpdate: NoAction, map: "FK_sold_glasses_employee")
+  glasses_3d  glasses_3d @relation(fields: [id_glasses], references: [id], onUpdate: NoAction, map: "FK_sold_glasses_glasses_3d")
 }
 
 model sysdiagrams {
@@ -84,32 +84,46 @@ model sysdiagrams {
 }
 
 model participation {
-  id            Int             @id(map: "PK_participation_1") @default(autoincrement())
-  name          String?         @db.VarChar(40)
-  surname       String?         @db.VarChar(50)
-  id_showing    Int?
-  ordered_snack ordered_snack[]
-  showing       showing?        @relation(fields: [id_showing], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_participation_showing")
-  sold_glasses  sold_glasses[]
+  id          Int      @id(map: "PK_participation_1") @default(autoincrement())
+  name        String   @db.VarChar(40)
+  surname     String   @db.VarChar(50)
+  id_showing  Int
+  email       String   @db.VarChar(75)
+  id_employee Int
+  employee    employee @relation(fields: [id_employee], references: [id], onUpdate: NoAction, map: "FK_participation_employee")
+  showing     showing  @relation(fields: [id_showing], references: [id], onUpdate: NoAction, map: "FK_participation_showing")
 }
 
 model users {
-  id          Int       @id(map: "PK_users") @default(autoincrement())
-  login       String    @unique @db.VarChar(50)
-  password    String    @db.VarChar(255)
+  id          Int      @id(map: "PK_users") @default(autoincrement())
+  login       String   @unique @db.VarChar(50)
+  password    String   @db.VarChar(255)
   id_employee Int
-  employee    employee? @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_users_employee")
+  logs        logs[]
+  employee    employee @relation(fields: [id_employee], references: [id], onUpdate: NoAction, map: "FK_users_employee")
 }
 
 model ordered_snack {
-  id               Int            @id(map: "PK_ordered_snack") @default(autoincrement())
-  id_snack         Int?
-  id_participation Int?
-  id_size          Int?
-  date             String?        @db.NChar(10)
-  id_employee      Int?
-  employee         employee?      @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_employee")
-  participation    participation? @relation(fields: [id_participation], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_participation1")
-  snack_size       snack_size?    @relation(fields: [id_size], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack_size")
-  snack            snack?         @relation(fields: [id_snack], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack1")
+  id               Int         @id(map: "PK_ordered_snack") @default(autoincrement())
+  id_snack         Int
+  id_size          Int
+  date             String     @db.NChar(10)
+  id_employee      Int
+  employee         employee   @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_employee")
+  snack_size       snack_size @relation(fields: [id_size], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack_size")
+  snack            snack      @relation(fields: [id_snack], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack1")
+}
+
+model logs {
+  id         Int        @id(map: "PK_logs") @default(autoincrement())
+  id_user    Int
+  id_action  Int
+  log_action log_action @relation(fields: [id_action], references: [id], onUpdate: NoAction, map: "FK_logs_action")
+  users      users      @relation(fields: [id_user], references: [id], onUpdate: NoAction, map: "FK_logs_users")
+}
+
+model log_action {
+  id   Int    @id(map: "PK_log_action") @default(autoincrement())
+  name String @unique @db.VarChar(100)
+  logs logs[]
 }

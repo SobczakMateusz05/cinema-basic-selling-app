@@ -10,6 +10,7 @@
             width: 130px;
             height: auto;
             border-radius: 35px;
+            cursor: pointer;
         }
         &__navigation {
             @include variable.flex-container(column, center, center);

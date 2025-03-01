@@ -7,6 +7,7 @@
         @include variable.flex-container(row, space-between, center);
     }
     &--right {
+        @include variable.flex-container(row, center, center);
         border-radius: 30px;
         background: variable.$white;
         padding: 20px;
