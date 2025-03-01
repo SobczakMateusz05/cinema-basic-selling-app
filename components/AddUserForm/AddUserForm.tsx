@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
-import Image from 'next/image';
-
-import Arrow from 'public/common/arrow.png';
 
 import {
     StatusInterface,
     validateField,
-    LoginFormDataInterface,
+    RegisterFormDataInterface,
 } from '@/utils/forms';
 
+import CustomDropdown from './CustomDropDown';
+
 export default function UserAddForm() {
-    const [formData, setFormData] = useState<LoginFormDataInterface>({
+    const [formData, setFormData] = useState<RegisterFormDataInterface>({
         login: '',
         password: '',
+        idEmployee: null,
     });
     const [status, setStatus] = useState<StatusInterface>({
         isSucces: true,
@@ -37,6 +37,13 @@ export default function UserAddForm() {
         }));
     };
 
+    const handleSelect = (id: number | null) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            idEmployee: id,
+        }));
+    };
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
@@ -46,7 +53,7 @@ export default function UserAddForm() {
             formData.password
         );
 
-        if (isValidateLogin && isValidatePassword) {
+        if (isValidateLogin && isValidatePassword && formData.idEmployee) {
             const res = await fetch('api/auth/register', {
                 method: 'POST',
                 headers: {
@@ -106,6 +113,7 @@ export default function UserAddForm() {
             <div className="loginForm--mainWrapper--inputWrapper">
                 <input
                     type="text"
+                    value={formData.login}
                     onChange={(event) => {
                         handleChange('login', event);
                     }}
@@ -122,6 +130,7 @@ export default function UserAddForm() {
             <div className="loginForm--mainWrapper--inputWrapper">
                 <input
                     type="password"
+                    value={formData.password}
                     onChange={(event) => {
                         handleChange('password', event);
                     }}
@@ -135,28 +144,7 @@ export default function UserAddForm() {
                     Password
                 </label>
             </div>
-            <div className="loginForm--mainWrapper--inputWrapper">
-                <select
-                    onChange={(event) => {
-                        handleChange('password', event);
-                    }}
-                    className="loginForm--mainWrapper--inputWrapper__input paragraph"
-                    id="employee"
-                >
-                    <option value="-1">Choose employee</option>
-                </select>
-                <label
-                    htmlFor="employee"
-                    className="loginForm--mainWrapper--inputWrapper__label paragraph"
-                >
-                    Pracownik
-                </label>
-                <Image
-                    src={Arrow}
-                    alt="arrow"
-                    className="loginForm--mainWrapper--inputWrapper__arrow"
-                />
-            </div>
+            <CustomDropdown handleSelect={handleSelect} />
             <button
                 type="submit"
                 onClick={(e) => handleSubmit(e)}

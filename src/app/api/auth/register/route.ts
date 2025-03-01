@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         );
     }
 
-    const { login, password, id_employee } = await req.json();
+    const { login, password, idEmployee } = await req.json();
     if (!login || !password) {
         return NextResponse.json(
             { message: 'Login and password are required' },
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         const hashedPassword = await HashPassword(password);
 
         await prisma.users.create({
-            data: { login, password: hashedPassword, id_employee },
+            data: { login, password: hashedPassword, id_employee: idEmployee },
         });
 
         return NextResponse.json(

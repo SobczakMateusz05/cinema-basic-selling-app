@@ -2,9 +2,11 @@ $black: #1e1e1e;
 $white: #ececec;
 $green: #7bff00;
 $red: #ff0000;
+$gray: #585858;
 
 $black-hover: #414040;
 $white-hover: #d3d2d2;
+$gray-hover: #686868;
 
 @mixin flex-container($direction, $algin, $justify) {
     display: flex;

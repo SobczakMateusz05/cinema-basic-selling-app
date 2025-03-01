@@ -97,7 +97,7 @@ model users {
   id          Int       @id(map: "PK_users") @default(autoincrement())
   login       String    @unique @db.VarChar(50)
   password    String    @db.VarChar(255)
-  id_employee Int?
+  id_employee Int
   employee    employee? @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_users_employee")
 }
 

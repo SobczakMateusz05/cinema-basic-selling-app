@@ -7,7 +7,8 @@
         &--inputWrapper {
             position: relative;
             width: 100%;
-            &__input {
+            &__input,
+            &__select {
                 width: 100%;
                 padding: 15px;
                 border: 1px solid variable.$white;
@@ -20,6 +21,38 @@
                 &::-webkit-outer-spin-button,
                 &::-webkit-inner-spin-button {
                     -webkit-appearance: none;
+                }
+            }
+            &__select {
+                cursor: pointer;
+            }
+            &__value {
+                width: fit-content;
+            }
+            &--dropList {
+                @include variable.flex-container(
+                    column,
+                    flex-start,
+                    flex-start
+                );
+                position: absolute;
+                width: 100%;
+                z-index: 1;
+                max-height: 96px;
+                overflow-y: auto;
+                &__item {
+                    width: 100%;
+                    text-align: start;
+                    padding: 7px;
+                    background: variable.$black;
+                    color: variable.$white;
+                    border: 1px solid variable.$white;
+                    cursor: pointer;
+                    transition: 0.3s ease;
+
+                    &:hover {
+                        background: variable.$black-hover;
+                    }
                 }
             }
             &__label {
