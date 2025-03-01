@@ -53,28 +53,36 @@ export default function UserAddForm() {
             formData.password
         );
 
-        if (isValidateLogin && isValidatePassword && formData.idEmployee) {
-            const res = await fetch('api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        if (isValidateLogin && isValidatePassword) {
+            if (formData.idEmployee) {
+                const res = await fetch('api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
 
-            const data = await res.json();
+                const data = await res.json();
 
-            if (res.ok) {
-                setStatus((prevState) => ({
-                    ...prevState,
-                    isSucces: true,
-                    message: data.message,
-                }));
+                if (res.ok) {
+                    setStatus((prevState) => ({
+                        ...prevState,
+                        isSucces: true,
+                        message: data.message,
+                    }));
+                } else {
+                    setStatus((prevState) => ({
+                        ...prevState,
+                        isSucces: false,
+                        message: data.message,
+                    }));
+                }
             } else {
                 setStatus((prevState) => ({
                     ...prevState,
                     isSucces: false,
-                    message: data.message,
+                    message: 'Employee not selected',
                 }));
             }
         } else if (

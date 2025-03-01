@@ -7,11 +7,11 @@ const prisma = new PrismaClient();
 export async function GET() {
     try {
         const employee = await prisma.employee.findMany();
-        return NextResponse.json({ employee }, { status: 200 });
+        return NextResponse.json({ employee, status: 200 });
     } catch (error) {
-        return NextResponse.json(
-            { message: 'Server error while fetching data' },
-            { status: 500 }
-        );
+        return NextResponse.json({
+            message: 'Server error while fetching data',
+            status: 500,
+        });
     }
 }
