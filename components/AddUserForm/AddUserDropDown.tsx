@@ -3,15 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import Arrow from 'public/common/arrow.png';
+import ArrowWhite from 'public/common/arrow-white.png';
 
 import { EmployeeInterface } from 'src/utils/forms';
 
 interface CustomDropdownProps {
     handleSelect: (id: number | null) => void;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export default function CustomDropdown({ handleSelect }: CustomDropdownProps) {
+export default function AddUserDropdown({
+    handleSelect,
+    setLoading,
+    setError,
+}: CustomDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => setIsOpen((prev) => !prev);
@@ -26,11 +32,16 @@ export default function CustomDropdown({ handleSelect }: CustomDropdownProps) {
 
             const data = await res.json();
 
-            if (res.ok) {
+            if (res.ok && data.status === 200) {
                 setEmployees(data.employee);
+                setLoading(false);
+            } else {
+                setError(data.message);
+                setLoading(false);
             }
         }
         employeeFetch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChange = (
@@ -78,7 +89,7 @@ export default function CustomDropdown({ handleSelect }: CustomDropdownProps) {
                 </div>
             )}
             <Image
-                src={Arrow}
+                src={ArrowWhite}
                 alt="arrow"
                 className="loginForm--mainWrapper--inputWrapper__arrow"
             />

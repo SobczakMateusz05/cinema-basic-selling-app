@@ -21,6 +21,16 @@ export interface EmployeeInterface {
     salary: number | null;
 }
 
+export interface SellFormInterface {
+    snack: number | null;
+    size: number | null;
+}
+
+export interface SellInterface {
+    id: number;
+    name: string;
+}
+
 export const validateField = (pattern: RegExp, value: string) => {
     return pattern.test(value);
 };

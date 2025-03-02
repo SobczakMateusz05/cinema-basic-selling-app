@@ -4,6 +4,7 @@ import React, { useState, FormEvent } from 'react';
 
 import { StatusInterface, LoginFormDataInterface } from '@/utils/forms';
 import { redirect } from 'next/navigation';
+import { ButtonBlackLoader } from 'components/Loader/Loader';
 
 export default function LoginForm() {
     const [formData, setFormData] = useState<LoginFormDataInterface>({
@@ -14,6 +15,8 @@ export default function LoginForm() {
         isSucces: true,
         message: '',
     });
+
+    const [buttonLoading, setButtonLoading] = useState(false);
 
     const handleChange = (
         fieldName: string,
@@ -29,6 +32,7 @@ export default function LoginForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setButtonLoading(true);
 
         if (formData.login !== '' && formData.password !== '') {
             const res = await fetch('api/auth/login', {
@@ -58,6 +62,7 @@ export default function LoginForm() {
                 message: 'Login and password are required',
             }));
         }
+        setButtonLoading(false);
     };
 
     return (
@@ -106,9 +111,14 @@ export default function LoginForm() {
             <button
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
-                className="loginForm--mainWrapper__signInBtn paragraph"
+                className={`loginForm--mainWrapper__signInBtn paragraph ${
+                    buttonLoading
+                        ? 'loginForm--mainWrapper__signInBtn__disabled'
+                        : ''
+                }`}
+                disabled={buttonLoading}
             >
-                Sign in
+                {!buttonLoading ? 'Sign in' : <ButtonBlackLoader />}
             </button>
         </form>
     );

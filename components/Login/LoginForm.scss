@@ -40,6 +40,7 @@
                 z-index: 1;
                 max-height: 128px;
                 overflow-y: auto;
+                box-shadow: 1px 1px 5px variable.$white;
                 &__item {
                     width: 100%;
                     text-align: start;
@@ -79,9 +80,18 @@
             color: variable.$black;
             cursor: pointer;
             transition: 0.3s ease;
+            @include variable.flex-container(row, center, center);
 
             &:hover {
                 background: variable.$white-hover;
+            }
+
+            &__disabled {
+                cursor: not-allowed;
+
+                &:hover {
+                    background: variable.$white;
+                }
             }
         }
 
@@ -95,5 +105,8 @@
                 color: variable.$red;
             }
         }
+    }
+    &__error {
+        color: variable.$red;
     }
 }

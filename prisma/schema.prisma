@@ -42,7 +42,7 @@ model snack {
 
 model snack_size {
   id               Int             @id(map: "PK_snack_size") @default(autoincrement())
-  size             String          @db.VarChar(50)
+  name              String          @db.VarChar(50)
   price_multiplier Float
   ordered_snack    ordered_snack[]
 }
@@ -58,7 +58,7 @@ model showing {
   id_film       Int
   date          DateTime        @db.Date
   room_number   Int
-  aviable_seats Int
+  available_seats Int
   participation participation[]
   film          film            @relation(fields: [id_film], references: [id], onUpdate: NoAction, map: "FK_showing_film")
   room          room            @relation(fields: [room_number], references: [number], onUpdate: NoAction, map: "FK_showing_room")
@@ -68,7 +68,7 @@ model sold_glasses {
   id          Int        @id(map: "PK_sold_glasses") @default(autoincrement())
   id_glasses  Int
   id_employee Int
-  date        DateTime   @db.Date
+  date        DateTime?   @db.Date
   employee    employee   @relation(fields: [id_employee], references: [id], onUpdate: NoAction, map: "FK_sold_glasses_employee")
   glasses_3d  glasses_3d @relation(fields: [id_glasses], references: [id], onUpdate: NoAction, map: "FK_sold_glasses_glasses_3d")
 }
@@ -107,7 +107,7 @@ model ordered_snack {
   id               Int         @id(map: "PK_ordered_snack") @default(autoincrement())
   id_snack         Int
   id_size          Int
-  date             String     @db.NChar(10)
+  date             DateTime?   @db.Date
   id_employee      Int
   employee         employee   @relation(fields: [id_employee], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_employee")
   snack_size       snack_size @relation(fields: [id_size], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ordered_snack_snack_size")

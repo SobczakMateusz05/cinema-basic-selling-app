@@ -5,9 +5,12 @@
         @include variable.flex-container(column, center, center);
         width: 100%;
         height: 100%;
-
         gap: 50px;
         color: variable.$black;
+
+        &__error {
+            color: variable.$red;
+        }
 
         &__menuItemWrapper {
             @include variable.flex-container(row, center, center);

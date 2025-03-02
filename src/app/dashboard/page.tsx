@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Menu from 'components/Menu/Menu';
 import MainPanel from 'components/MainPanel/MainPanel';
 import SellTicketForm from 'components/SellForm/SellTicketForm';
+import SellSnackForm from 'components/SellForm/SellSnackForm';
 
 export default function Dashboard() {
     const [right, setRight] = useState(0);
@@ -21,6 +22,7 @@ export default function Dashboard() {
                     <MainPanel handleMenuChange={handleMenuChange} />
                 )}
                 {right === 1 && <SellTicketForm />}
+                {right === 2 && <SellSnackForm />}
             </div>
         </main>
     );

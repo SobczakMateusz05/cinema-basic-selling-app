@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import MenuItem from 'components/Menu/MenuItem';
-import Loader from 'components/Loader/Loader';
+import { BlackLoader } from 'components/Loader/Loader';
 
 import { MenuItemParms } from '../Menu/MenuItemsParms';
 
@@ -12,8 +12,9 @@ interface MainPanelInterface {
 }
 
 export default function MainPanel({ handleMenuChange }: MainPanelInterface) {
-    const [userName, setUserName] = useState('');
+    const [userName, setUserName] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function employeeFetch() {
@@ -21,8 +22,11 @@ export default function MainPanel({ handleMenuChange }: MainPanelInterface) {
 
             const data = await res.json();
 
-            if (res.ok) {
+            if (res.ok && data.status === 200) {
                 setUserName(data.userData.name);
+                setLoading(false);
+            } else {
+                setError(data.message);
                 setLoading(false);
             }
         }
@@ -32,7 +36,15 @@ export default function MainPanel({ handleMenuChange }: MainPanelInterface) {
     if (loading) {
         return (
             <section className="mainPanel--mainWrapper">
-                <Loader />
+                <BlackLoader />
+            </section>
+        );
+    }
+
+    if (error) {
+        return (
+            <section className="mainPanel--mainWrapper">
+                <h1 className="title mainPanel--mainWrapper__error">{error}</h1>
             </section>
         );
     }

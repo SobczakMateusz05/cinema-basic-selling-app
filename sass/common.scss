@@ -17,18 +17,3 @@
     font-family: var(--font-raleway);
     font-size: 2.5em;
 }
-
-/* animation from https://css-loaders.com/spinner/ */
-.loader {
-    width: 150px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 15px solid;
-    border-color: variable.$black transparent;
-    animation: l1 1s infinite;
-}
-@keyframes l1 {
-    to {
-        transform: rotate(0.5turn);
-    }
-}

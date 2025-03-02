@@ -8,7 +8,8 @@ import {
     RegisterFormDataInterface,
 } from '@/utils/forms';
 
-import CustomDropdown from './CustomDropDown';
+import { WhiteLoader, ButtonBlackLoader } from 'components/Loader/Loader';
+import AddUserDropDown from './AddUserDropDown';
 
 export default function UserAddForm() {
     const [formData, setFormData] = useState<RegisterFormDataInterface>({
@@ -20,6 +21,10 @@ export default function UserAddForm() {
         isSucces: true,
         message: '',
     });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const [buttonLoading, setButtonLoading] = useState(false);
 
     const passwordPattern =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -46,6 +51,7 @@ export default function UserAddForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setButtonLoading(true);
 
         const isValidateLogin = validateField(loginPattern, formData.login);
         const isValidatePassword = validateField(
@@ -105,61 +111,82 @@ export default function UserAddForm() {
                 message: "Login or password doesn't match requirements",
             }));
         }
+        setButtonLoading(false);
     };
 
+    if (error) {
+        return <h1 className="title loginForm__error">{error}</h1>;
+    }
+
     return (
-        <form className="loginForm--mainWrapper">
-            <p
-                className={`loginForm--mainWrapper__message paragraph ${
-                    !status.isSucces
-                        ? 'loginForm--mainWrapper__message__error'
-                        : ''
-                }`}
+        <div>
+            <form
+                className={`loginForm--mainWrapper ${loading ? 'disable' : ''}`}
             >
-                {status.message}
-            </p>
-            <div className="loginForm--mainWrapper--inputWrapper">
-                <input
-                    type="text"
-                    value={formData.login}
-                    onChange={(event) => {
-                        handleChange('login', event);
-                    }}
-                    className="loginForm--mainWrapper--inputWrapper__input paragraph"
-                    id="login"
-                />
-                <label
-                    htmlFor="login"
-                    className="loginForm--mainWrapper--inputWrapper__label paragraph"
+                <p
+                    className={`loginForm--mainWrapper__message paragraph ${
+                        !status.isSucces
+                            ? 'loginForm--mainWrapper__message__error'
+                            : ''
+                    }`}
                 >
-                    Login
-                </label>
-            </div>
-            <div className="loginForm--mainWrapper--inputWrapper">
-                <input
-                    type="password"
-                    value={formData.password}
-                    onChange={(event) => {
-                        handleChange('password', event);
-                    }}
-                    className="loginForm--mainWrapper--inputWrapper__input paragraph"
-                    id="password"
+                    {status.message}
+                </p>
+                <div className="loginForm--mainWrapper--inputWrapper">
+                    <input
+                        type="text"
+                        value={formData.login}
+                        onChange={(event) => {
+                            handleChange('login', event);
+                        }}
+                        className="loginForm--mainWrapper--inputWrapper__input paragraph"
+                        id="login"
+                    />
+                    <label
+                        htmlFor="login"
+                        className="loginForm--mainWrapper--inputWrapper__label paragraph"
+                    >
+                        Login
+                    </label>
+                </div>
+                <div className="loginForm--mainWrapper--inputWrapper">
+                    <input
+                        type="password"
+                        value={formData.password}
+                        onChange={(event) => {
+                            handleChange('password', event);
+                        }}
+                        className="loginForm--mainWrapper--inputWrapper__input paragraph"
+                        id="password"
+                    />
+                    <label
+                        htmlFor="password"
+                        className="loginForm--mainWrapper--inputWrapper__label paragraph"
+                    >
+                        Password
+                    </label>
+                </div>
+                <AddUserDropDown
+                    handleSelect={handleSelect}
+                    setLoading={setLoading}
+                    setError={setError}
                 />
-                <label
-                    htmlFor="password"
-                    className="loginForm--mainWrapper--inputWrapper__label paragraph"
+                <button
+                    type="submit"
+                    onClick={(e) => handleSubmit(e)}
+                    className={`loginForm--mainWrapper__signInBtn paragraph ${
+                        buttonLoading
+                            ? 'loginForm--mainWrapper__signInBtn__disabled'
+                            : ''
+                    }`}
+                    disabled={buttonLoading}
                 >
-                    Password
-                </label>
+                    {!buttonLoading ? 'Add User' : <ButtonBlackLoader />}
+                </button>
+            </form>
+            <div className={!loading ? 'disable' : ''}>
+                <WhiteLoader />
             </div>
-            <CustomDropdown handleSelect={handleSelect} />
-            <button
-                type="submit"
-                onClick={(e) => handleSubmit(e)}
-                className="loginForm--mainWrapper__signInBtn paragraph"
-            >
-                Add User
-            </button>
-        </form>
+        </div>
     );
 }

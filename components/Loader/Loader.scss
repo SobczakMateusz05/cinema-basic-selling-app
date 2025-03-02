@@ -1,0 +1,26 @@
+@use '../../sass/variables.scss' as variable;
+
+/* animation from https://css-loaders.com/spinner/ */
+.loader {
+    width: 150px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 15px solid;
+    border-color: variable.$black transparent;
+    animation: l1 1s infinite;
+
+    &__button {
+        width: 16px;
+        border: 3px solid;
+        border-color: variable.$black transparent;
+    }
+
+    &__white {
+        border-color: variable.$white transparent;
+    }
+}
+@keyframes l1 {
+    to {
+        transform: rotate(0.5turn);
+    }
+}
