@@ -28,7 +28,7 @@ export default function AddUserDropdown({
 
     useEffect(() => {
         async function employeeFetch() {
-            const res = await fetch('api/registerForm/employeeFetch');
+            const res = await fetch('api/auth/employeeFetch');
 
             const data = await res.json();
 
