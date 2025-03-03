@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 
 import { StatusInterface, LoginFormDataInterface } from '@/utils/forms';
 import { redirect } from 'next/navigation';
@@ -32,6 +32,11 @@ export default function LoginForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setStatus((prevState) => ({
+            ...prevState,
+            isSucces: true,
+            message: '',
+        }));
         setButtonLoading(true);
 
         if (formData.login !== '' && formData.password !== '') {
@@ -64,6 +69,19 @@ export default function LoginForm() {
         }
         setButtonLoading(false);
     };
+
+    useEffect(() => {
+        const loggedOut = localStorage.getItem('loggedOut');
+
+        if (loggedOut) {
+            setStatus((prevState) => ({
+                ...prevState,
+                isSucces: false,
+                message: 'Loged out! You have to log in again',
+            }));
+            localStorage.removeItem('loggedOut');
+        }
+    }, []);
 
     return (
         <form className="loginForm--mainWrapper">

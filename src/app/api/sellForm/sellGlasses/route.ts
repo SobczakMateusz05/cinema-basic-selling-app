@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    const { snack, size } = await req.json();
+    const { glasses } = await req.json();
 
     const token = req.cookies.get('accessToken')?.value;
 
@@ -30,16 +30,16 @@ export async function POST(req: NextRequest) {
 
     const { idEmployee } = decodedToken;
 
-    if (!snack || !size) {
+    if (!glasses) {
         return NextResponse.json({
-            message: 'Snack and/or size are not selected',
+            message: 'Glasses are not selected',
             status: '400',
         });
     }
 
     try {
-        await prisma.sold_snack.create({
-            data: { id_snack: snack, id_size: size, id_employee: idEmployee },
+        await prisma.sold_glasses.create({
+            data: { id_glasses: glasses, id_employee: idEmployee },
         });
 
         return NextResponse.json({ message: 'Sold successfully', status: 200 });

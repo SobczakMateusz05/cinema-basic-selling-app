@@ -21,14 +21,27 @@ export interface EmployeeInterface {
     salary: number | null;
 }
 
-export interface SellFormInterface {
+export interface SellSnackFormInterface {
     snack: number | null;
     size: number | null;
+}
+
+export interface SellGlassesFormInterface {
+    glasses: number | null;
 }
 
 export interface SellInterface {
     id: number;
     name: string;
+    date: string | null;
+    film: { title: string } | null;
+}
+
+export interface SellTicketFormInterface {
+    name: string;
+    surname: string;
+    email: string;
+    showing: number | null;
 }
 
 export const validateField = (pattern: RegExp, value: string) => {

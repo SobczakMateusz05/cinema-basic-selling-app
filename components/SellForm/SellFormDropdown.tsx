@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
 import ArrowBlack from 'public/common/arrow-black.png';
 import { SellInterface } from 'src/utils/forms';
 
-interface CustomDropdownInterface {
+export interface CustomDropdownInterface {
     handleSelect: (id: number | null, fieldName: string) => void;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setError: React.Dispatch<React.SetStateAction<string | null>>;
@@ -38,6 +39,11 @@ export default function SellFormDropdown({
             const res = await fetch(apiLocation);
 
             const data = await res.json();
+
+            if (res.status === 401) {
+                localStorage.setItem('loggedOut', 'true');
+                redirect('/');
+            }
 
             if (res.ok && data.status === 200) {
                 setData(data.sell);
@@ -71,10 +77,21 @@ export default function SellFormDropdown({
                         <button
                             key={data.id}
                             className="sellForm--mainWrapper--inputWrapper--dropList__item paragraph"
-                            onClick={() => handleChange(data.id, data.name)}
+                            onClick={(event) =>
+                                handleChange(
+                                    data.id,
+                                    (event.target as HTMLButtonElement)
+                                        .innerText
+                                )
+                            }
                             type="button"
                         >
-                            {data.name}
+                            {data.film && data.date
+                                ? data.film.title +
+                                  ' (' +
+                                  data.date.slice(0, 10) +
+                                  ')'
+                                : data.name}
                         </button>
                     ))}
                 </div>

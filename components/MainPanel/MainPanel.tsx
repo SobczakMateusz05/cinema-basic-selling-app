@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 import MenuItem from 'components/Menu/MenuItem';
 import { BlackLoader } from 'components/Loader/Loader';
@@ -21,6 +22,11 @@ export default function MainPanel({ handleMenuChange }: MainPanelInterface) {
             const res = await fetch('api/mainPanel/userRealName');
 
             const data = await res.json();
+
+            if (res.status === 401) {
+                localStorage.setItem('loggedOut', 'true');
+                redirect('/');
+            }
 
             if (res.ok && data.status === 200) {
                 setUserName(data.userData.name);

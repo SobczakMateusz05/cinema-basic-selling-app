@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    const { snack, size } = await req.json();
+    const { name, surname, email, showing } = await req.json();
 
     const token = req.cookies.get('accessToken')?.value;
 
@@ -30,16 +30,22 @@ export async function POST(req: NextRequest) {
 
     const { idEmployee } = decodedToken;
 
-    if (!snack || !size) {
+    if (!name || !surname || !email || !showing) {
         return NextResponse.json({
-            message: 'Snack and/or size are not selected',
+            message: 'Fields are not fill propertly',
             status: '400',
         });
     }
 
     try {
-        await prisma.sold_snack.create({
-            data: { id_snack: snack, id_size: size, id_employee: idEmployee },
+        await prisma.sold_ticket.create({
+            data: {
+                name,
+                surname,
+                email,
+                id_showing: showing,
+                id_employee: idEmployee,
+            },
         });
 
         return NextResponse.json({ message: 'Sold successfully', status: 200 });

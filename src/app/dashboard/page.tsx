@@ -6,6 +6,7 @@ import Menu from 'components/Menu/Menu';
 import MainPanel from 'components/MainPanel/MainPanel';
 import SellTicketForm from 'components/SellForm/SellTicketForm';
 import SellSnackForm from 'components/SellForm/SellSnackForm';
+import SellGlassesForm from 'components/SellForm/SellGlassesForm.';
 
 export default function Dashboard() {
     const [right, setRight] = useState(0);
@@ -23,6 +24,7 @@ export default function Dashboard() {
                 )}
                 {right === 1 && <SellTicketForm />}
                 {right === 2 && <SellSnackForm />}
+                {right === 3 && <SellGlassesForm />}
             </div>
         </main>
     );

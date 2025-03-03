@@ -4,19 +4,18 @@ import React, { useState, FormEvent } from 'react';
 import { redirect } from 'next/navigation';
 
 import { BlackLoader, ButtonWhiteLoader } from 'components/Loader/Loader';
-import { SellSnackFormInterface, StatusInterface } from 'src/utils/forms';
+import { SellGlassesFormInterface, StatusInterface } from 'src/utils/forms';
 import SellFormDropdown from './SellFormDropdown';
 
-export default function SellSnackForm() {
+export default function SellGlassesForm() {
     const [status, setStatus] = useState<StatusInterface>({
         isSucces: true,
         message: '',
     });
     const [loading, setLoading] = useState(true);
     const [buttonLoading, setButtonLoading] = useState(false);
-    const [formData, setFormData] = useState<SellSnackFormInterface>({
-        snack: null,
-        size: null,
+    const [formData, setFormData] = useState<SellGlassesFormInterface>({
+        glasses: null,
     });
     const [error, setError] = useState<string | null>(null);
 
@@ -36,8 +35,8 @@ export default function SellSnackForm() {
         }));
         setButtonLoading(!buttonLoading);
 
-        if (formData.snack && formData.size) {
-            const res = await fetch('api/sellForm/sellSnack', {
+        if (formData) {
+            const res = await fetch('api/sellForm/sellGlasses', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ export default function SellSnackForm() {
             setStatus((prevState) => ({
                 ...prevState,
                 isSucces: false,
-                message: 'Snack and/or size are not selected',
+                message: 'Glasses are not selected',
             }));
         }
         setButtonLoading((prev) => !prev);
@@ -88,7 +87,7 @@ export default function SellSnackForm() {
             <form
                 className={`sellForm--mainWrapper ${loading ? 'disable' : ''}`}
             >
-                <h1 className="title">Sell Snack</h1>
+                <h1 className="title">Sell Glasses</h1>
                 <p
                     className={`sellForm--mainWrapper__message paragraph ${
                         !status.isSucces
@@ -103,17 +102,8 @@ export default function SellSnackForm() {
                         handleSelect={handleSelect}
                         setLoading={setLoading}
                         setError={setError}
-                        apiLocation="api/sellForm/sellSnackFetch"
-                        item="snack"
-                    />
-                </div>
-                <div className="sellForm--mainWrapper--inputWrapper">
-                    <SellFormDropdown
-                        handleSelect={handleSelect}
-                        setLoading={setLoading}
-                        setError={setError}
-                        apiLocation="api/sellForm/sellSnackSizeFetch"
-                        item="size"
+                        apiLocation="api/sellForm/sellGlassesFetch"
+                        item="glasses"
                     />
                 </div>
                 <button
@@ -126,7 +116,7 @@ export default function SellSnackForm() {
                     }`}
                     disabled={buttonLoading}
                 >
-                    {!buttonLoading ? 'Sell Snack' : <ButtonWhiteLoader />}
+                    {!buttonLoading ? 'Sell Glasses' : <ButtonWhiteLoader />}
                 </button>
             </form>
             <div className={!loading ? 'disable' : ''}>

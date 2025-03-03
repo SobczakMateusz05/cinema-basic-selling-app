@@ -32,7 +32,7 @@ export default function UserAddForm() {
 
     const handleChange = (
         fieldName: string,
-        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+        event: React.ChangeEvent<HTMLInputElement>
     ) => {
         const targetField = event.target;
 
@@ -51,6 +51,11 @@ export default function UserAddForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setStatus((prevState) => ({
+            ...prevState,
+            isSucces: true,
+            message: '',
+        }));
         setButtonLoading(true);
 
         const isValidateLogin = validateField(loginPattern, formData.login);

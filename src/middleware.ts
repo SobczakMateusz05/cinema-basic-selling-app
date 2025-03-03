@@ -17,6 +17,24 @@ export function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
+    if (req.nextUrl.pathname.startsWith('/api')) {
+        if (!token) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+
+        const decoded = verifyToken(token);
+
+        if (!decoded) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+    }
+
     if (!token) {
         return NextResponse.redirect(new URL('/', req.url));
     }
