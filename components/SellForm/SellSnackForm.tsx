@@ -29,8 +29,7 @@ export default function SellSnackForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setStatus((prevState) => ({
-            ...prevState,
+        setStatus(() => ({
             isSucces: true,
             message: '',
         }));
@@ -53,21 +52,22 @@ export default function SellSnackForm() {
             }
 
             if (res.ok && data.status === 200) {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: true,
                     message: data.message,
                 }));
+                setFormData(() => ({
+                    snack: null,
+                    size: null,
+                }));
             } else {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: false,
                     message: data.message,
                 }));
             }
         } else {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'Snack and/or size are not selected',
             }));
@@ -105,6 +105,7 @@ export default function SellSnackForm() {
                         setError={setError}
                         apiLocation="api/sellForm/sellSnackFetch"
                         item="snack"
+                        value={formData.snack}
                     />
                 </div>
                 <div className="sellForm--mainWrapper--inputWrapper">
@@ -114,6 +115,7 @@ export default function SellSnackForm() {
                         setError={setError}
                         apiLocation="api/sellForm/sellSnackSizeFetch"
                         item="size"
+                        value={formData.size}
                     />
                 </div>
                 <button

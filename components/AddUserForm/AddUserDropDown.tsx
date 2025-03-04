@@ -11,12 +11,14 @@ interface CustomDropdownProps {
     handleSelect: (id: number | null) => void;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setError: React.Dispatch<React.SetStateAction<string | null>>;
+    idEmployee: number | null;
 }
 
 export default function AddUserDropdown({
     handleSelect,
     setLoading,
     setError,
+    idEmployee,
 }: CustomDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -43,6 +45,10 @@ export default function AddUserDropdown({
         employeeFetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        !idEmployee ? setSelectedName('Select an employee') : null;
+    }, [idEmployee]);
 
     const handleChange = (
         id: number | null,

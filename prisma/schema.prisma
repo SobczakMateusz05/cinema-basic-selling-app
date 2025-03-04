@@ -55,7 +55,7 @@ model room {
 }
 
 model showing {
-  id              Int           @id(map: "PK_showing") @default(autoincrement())
+  id              Int           @id(map: "PK_showing") @default(autoincrement()) @unique
   id_film         Int
   date            DateTime      @db.Date
   room_number     Int

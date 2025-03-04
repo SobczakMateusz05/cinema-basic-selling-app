@@ -44,6 +44,11 @@ export interface SellTicketFormInterface {
     showing: number | null;
 }
 
+export interface InformationInterface {
+    room: number | null;
+    seats: number | null;
+}
+
 export const validateField = (pattern: RegExp, value: string) => {
     return pattern.test(value);
 };

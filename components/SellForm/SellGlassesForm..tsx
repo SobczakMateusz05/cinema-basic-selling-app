@@ -28,8 +28,7 @@ export default function SellGlassesForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setStatus((prevState) => ({
-            ...prevState,
+        setStatus(() => ({
             isSucces: true,
             message: '',
         }));
@@ -52,21 +51,21 @@ export default function SellGlassesForm() {
             }
 
             if (res.ok && data.status === 200) {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: true,
                     message: data.message,
                 }));
+                setFormData(() => ({
+                    glasses: null,
+                }));
             } else {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: false,
                     message: data.message,
                 }));
             }
         } else {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'Glasses are not selected',
             }));
@@ -104,6 +103,7 @@ export default function SellGlassesForm() {
                         setError={setError}
                         apiLocation="api/sellForm/sellGlassesFetch"
                         item="glasses"
+                        value={formData.glasses}
                     />
                 </div>
                 <button

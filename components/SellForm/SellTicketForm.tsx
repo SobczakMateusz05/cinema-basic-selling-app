@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { redirect } from 'next/navigation';
 
 import { BlackLoader, ButtonWhiteLoader } from 'components/Loader/Loader';
@@ -9,6 +9,7 @@ import {
     StatusInterface,
     SellTicketFormInterface,
     validateField,
+    InformationInterface,
 } from '@/utils/forms';
 import SellFormDropdown from './SellFormDropdown';
 
@@ -25,6 +26,10 @@ export default function SellTicketForm() {
         surname: '',
         email: '',
         showing: null,
+    });
+    const [information, setInformation] = useState<InformationInterface>({
+        room: null,
+        seats: null,
     });
 
     const namePattern =
@@ -50,8 +55,7 @@ export default function SellTicketForm() {
     };
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setStatus((prevState) => ({
-            ...prevState,
+        setStatus(() => ({
             isSucces: true,
             message: '',
         }));
@@ -82,40 +86,88 @@ export default function SellTicketForm() {
             }
 
             if (res.ok && data.status === 200) {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: true,
                     message: data.message,
                 }));
+                setFormData(() => ({
+                    name: '',
+                    surname: '',
+                    email: '',
+                    showing: null,
+                }));
             } else {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: false,
                     message: data.message,
                 }));
             }
         } else if (!formData.showing) {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'Showing is not selected',
             }));
         } else if (!emailValidate) {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'E-mail is wrong',
             }));
         } else {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'Name and/or surname is wrong',
             }));
         }
-
         setButtonLoading((prev) => !prev);
     };
+
+    const showingInformation = async () => {
+        const res = await fetch('/api/sellForm/showingInformationFetch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 401) {
+            localStorage.setItem('loggedOut', 'true');
+            redirect('/');
+        }
+
+        if (res.ok && data.status === 200) {
+            setInformation(() => ({
+                room: data.information.room_number,
+                seats: data.information.available_seats,
+            }));
+        } else if (res.ok && data.status === 201) {
+            setStatus(() => ({
+                isSucces: false,
+                message: data.message,
+            }));
+        } else {
+            setError(data.message);
+        }
+    };
+
+    useEffect(() => {
+        if (formData.showing) {
+            showingInformation();
+        } else {
+            setInformation(() => ({
+                room: null,
+                seats: null,
+            }));
+            setFormData(() => ({
+                name: '',
+                surname: '',
+                email: '',
+                showing: null,
+            }));
+        }
+    }, [formData.showing]);
 
     if (error) {
         return (
@@ -198,7 +250,22 @@ export default function SellTicketForm() {
                         setError={setError}
                         apiLocation="api/sellForm/showingFetch"
                         item="showing"
+                        value={formData.showing}
                     />
+                </div>
+                <div className="sellForm--mainWrapper--informationWrapper">
+                    <div className="sellForm--mainWrapper--informationWrapper__line">
+                        <p className="paragraph ">Room number: </p>
+                        <p className="paragraph">
+                            {information.room ? information.room : '-'}
+                        </p>
+                    </div>
+                    <div className="sellForm--mainWrapper--informationWrapper__line">
+                        <p className="paragraph">Available Seats: </p>
+                        <p className="paragraph">
+                            {information.seats ? information.seats : '-'}
+                        </p>
+                    </div>
                 </div>
                 <button
                     type="submit"

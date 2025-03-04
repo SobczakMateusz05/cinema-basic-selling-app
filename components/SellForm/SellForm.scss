@@ -10,6 +10,7 @@
         &--inputWrapper {
             position: relative;
             width: 100%;
+
             &__input,
             &__select {
                 width: 100%;
@@ -105,6 +106,17 @@
 
             &__error {
                 color: variable.$dark-red;
+            }
+        }
+
+        &--informationWrapper {
+            @include variable.flex-container(column, flex-start, center);
+            width: 100%;
+            gap: 10px;
+
+            &__line {
+                @include variable.flex-container(row, center, center);
+                gap: 5px;
             }
         }
     }

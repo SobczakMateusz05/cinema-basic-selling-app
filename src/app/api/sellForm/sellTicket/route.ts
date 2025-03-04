@@ -38,17 +38,31 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        await prisma.sold_ticket.create({
-            data: {
-                name,
-                surname,
-                email,
-                id_showing: showing,
-                id_employee: idEmployee,
-            },
+        const information = await prisma.showing.findUnique({
+            where: { id: showing },
         });
 
-        return NextResponse.json({ message: 'Sold successfully', status: 200 });
+        if (information.available_seats > 0) {
+            await prisma.sold_ticket.create({
+                data: {
+                    name,
+                    surname,
+                    email,
+                    id_showing: showing,
+                    id_employee: idEmployee,
+                },
+            });
+
+            return NextResponse.json({
+                message: 'Sold successfully',
+                status: 200,
+            });
+        } else {
+            return NextResponse.json({
+                message: 'Seats are no available',
+                status: 201,
+            });
+        }
     } catch (error) {
         return NextResponse.json({
             message: 'Server error while solding',

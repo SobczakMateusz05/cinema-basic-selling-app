@@ -51,8 +51,7 @@ export default function UserAddForm() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setStatus((prevState) => ({
-            ...prevState,
+        setStatus(() => ({
             isSucces: true,
             message: '',
         }));
@@ -77,21 +76,23 @@ export default function UserAddForm() {
                 const data = await res.json();
 
                 if (res.ok) {
-                    setStatus((prevState) => ({
-                        ...prevState,
+                    setStatus(() => ({
                         isSucces: true,
                         message: data.message,
                     }));
+                    setFormData(() => ({
+                        login: '',
+                        password: '',
+                        idEmployee: null,
+                    }));
                 } else {
-                    setStatus((prevState) => ({
-                        ...prevState,
+                    setStatus(() => ({
                         isSucces: false,
                         message: data.message,
                     }));
                 }
             } else {
-                setStatus((prevState) => ({
-                    ...prevState,
+                setStatus(() => ({
                     isSucces: false,
                     message: 'Employee not selected',
                 }));
@@ -104,14 +105,12 @@ export default function UserAddForm() {
             formData.login === null ||
             formData.password === null
         ) {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: 'Login and password are required',
             }));
         } else {
-            setStatus((prevState) => ({
-                ...prevState,
+            setStatus(() => ({
                 isSucces: false,
                 message: "Login or password doesn't match requirements",
             }));
@@ -175,6 +174,7 @@ export default function UserAddForm() {
                     handleSelect={handleSelect}
                     setLoading={setLoading}
                     setError={setError}
+                    idEmployee={formData.idEmployee}
                 />
                 <button
                     type="submit"

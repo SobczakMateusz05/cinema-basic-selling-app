@@ -13,6 +13,7 @@ export interface CustomDropdownInterface {
     setError: React.Dispatch<React.SetStateAction<string | null>>;
     apiLocation: string;
     item: string;
+    value: number | null;
 }
 
 export default function SellFormDropdown({
@@ -21,6 +22,7 @@ export default function SellFormDropdown({
     setError,
     apiLocation,
     item,
+    value,
 }: CustomDropdownInterface) {
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState<SellInterface[]>([]);
@@ -56,6 +58,10 @@ export default function SellFormDropdown({
         sellFetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        !value ? setSelected('Choose option') : null;
+    }, [value]);
 
     return (
         <div className="sellForm--mainWrapper--inputWrapper">
