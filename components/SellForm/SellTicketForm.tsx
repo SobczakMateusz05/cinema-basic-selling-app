@@ -167,7 +167,8 @@ export default function SellTicketForm() {
                 showing: null,
             }));
         }
-    }, [formData.showing, showingInformation]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formData.showing]);
 
     if (error) {
         return (
