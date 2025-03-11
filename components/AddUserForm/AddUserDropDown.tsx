@@ -46,7 +46,7 @@ export default function AddUserDropdown({
     }, [setError, setLoading]);
 
     useEffect(() => {
-        if (idEmployee) {
+        if (!idEmployee) {
             setSelectedName('Select an employee');
         }
     }, [idEmployee]);
