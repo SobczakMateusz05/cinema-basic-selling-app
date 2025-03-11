@@ -43,11 +43,12 @@ export default function AddUserDropdown({
             }
         }
         employeeFetch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [setError, setLoading]);
 
     useEffect(() => {
-        !idEmployee ? setSelectedName('Select an employee') : null;
+        if (idEmployee) {
+            setSelectedName('Select an employee');
+        }
     }, [idEmployee]);
 
     const handleChange = (
