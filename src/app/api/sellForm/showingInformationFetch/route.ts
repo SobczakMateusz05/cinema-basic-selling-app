@@ -1,12 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse, NextRequest } from 'next/server';
-import { verifyToken } from 'src/utils/verify';
-
-interface TokenInterface {
-    id: number;
-    login: string;
-    idEmployee: number;
-}
 
 const prisma = new PrismaClient();
 // eslint-disable-next-line import/prefer-default-export

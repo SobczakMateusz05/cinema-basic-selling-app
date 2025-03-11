@@ -1,4 +1,4 @@
-import 'sass/globals.scss';
+import '../../sass/globals.scss';
 import { Raleway } from 'next/font/google';
 import { Metadata } from 'next';
 

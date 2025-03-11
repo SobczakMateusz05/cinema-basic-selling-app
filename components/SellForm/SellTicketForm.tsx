@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, useCallback, FormEvent } from 'react';
 import { redirect } from 'next/navigation';
 
 import { BlackLoader, ButtonWhiteLoader } from 'components/Loader/Loader';
@@ -121,7 +121,7 @@ export default function SellTicketForm() {
         setButtonLoading((prev) => !prev);
     };
 
-    const showingInformation = async () => {
+    const showingInformation = useCallback(async () => {
         const res = await fetch('/api/sellForm/showingInformationFetch', {
             method: 'POST',
             headers: {
@@ -150,7 +150,7 @@ export default function SellTicketForm() {
         } else {
             setError(data.message);
         }
-    };
+    }, [formData]);
 
     useEffect(() => {
         if (formData.showing) {
@@ -167,7 +167,7 @@ export default function SellTicketForm() {
                 showing: null,
             }));
         }
-    }, [formData.showing]);
+    }, [formData.showing, showingInformation]);
 
     if (error) {
         return (

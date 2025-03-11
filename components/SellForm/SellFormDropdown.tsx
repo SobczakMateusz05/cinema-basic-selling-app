@@ -56,11 +56,12 @@ export default function SellFormDropdown({
             }
         }
         sellFetch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [apiLocation, setError, setLoading]);
 
     useEffect(() => {
-        !value ? setSelected('Choose option') : null;
+        if (!value) {
+            setSelected('Choose option');
+        }
     }, [value]);
 
     return (

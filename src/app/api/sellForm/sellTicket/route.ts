@@ -42,7 +42,11 @@ export async function POST(req: NextRequest) {
             where: { id: showing },
         });
 
-        if (information.available_seats > 0) {
+        if (
+            information !== null &&
+            information.available_seats !== null &&
+            information.available_seats > 0
+        ) {
             await prisma.sold_ticket.create({
                 data: {
                     name,
@@ -57,12 +61,11 @@ export async function POST(req: NextRequest) {
                 message: 'Sold successfully',
                 status: 200,
             });
-        } else {
-            return NextResponse.json({
-                message: 'Seats are no available',
-                status: 201,
-            });
         }
+        return NextResponse.json({
+            message: 'Seats are no available',
+            status: 201,
+        });
     } catch (error) {
         return NextResponse.json({
             message: 'Server error while solding',
