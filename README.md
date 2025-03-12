@@ -180,11 +180,3 @@ NODE_ENV=[development/production (production jeśli masz HTTPS, NODE_ENV jest au
 ## Produkcyjnie bez HTTPS
 
 Jeśli chcesz używać hostowania produkcyjnego aplikacji ale nie posiadasz HTTPS (**odradzane rozwiązanie**), jest to możliwe lecz trzeba zmienić 2 miejsca w kodzie. Pierwszą zaminę wykonujemy w pliku `src/app/api/logout/route.ts` w linii 12, należy zmienić `process.env.NODE_ENV === 'production'` na `false`. Druga zmiana jest w pliku `src/app/api/login/route.ts` w linii 60, należy zmienić `process.env.NODE_ENV === 'production'` na `false`. Po wykonaniu tych zmian aplikacja będzie poprawnie działała. **W przypadku dodania HTTPS w przyszłości zmiany należy cofnąć!**
-
-```
-
-```
-
-```
-
-```
