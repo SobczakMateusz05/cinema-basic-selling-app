@@ -1,4 +1,4 @@
-<h1 algin="center"> CINEMA BASIC SELLING APP </h1> <br>
+<h1 align="center"> CINEMA BASIC SELLING APP </h1> <br>
 
 ## ENGLISH
 
@@ -110,19 +110,15 @@ I recommend **Linux system**. This quide was made for **Ubuntu Server 22.04** li
 14. Use this commands to activate configuration:
 
     ```
-
     $ pm2 start ecosystem.config.js
     $ pm2 save
     $ pm2 restart next-app
-
     ```
 
 15. To make sure environment variables work build a app again by
 
     ```
-
     $ npm run build
-
     ```
 
 ## Database Prepare
