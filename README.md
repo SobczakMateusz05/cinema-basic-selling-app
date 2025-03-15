@@ -46,29 +46,29 @@ I recommend **Linux system**. This quide was made for **Ubuntu Server 22.04** li
 
 1. Import database (cinema_database.sql) to your SQL Server.
 2. Do steps from [database prepare](#database-prepare) (below).
-3. On your server use this command to update system
+3. On your server use this command to update system:
 
     ```
     $ sudo apt update && sudo apt upgrade -y
     ```
 
-4. Next install node.js and npm by 3 commands
+4. Next install node.js and npm by 3 commands:
     ```
     $ curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash`
     $ source ~/.bashrc
     $ nvm install --lts
     ```
-5. Install PM2 (process manager for running applications) using
+5. Install PM2 (process manager for running applications) using:
 
     ```
     $ npm install -g pm2
     ```
 
-6. Clone repository to your system by
+6. Clone repository to your system (you can remove readme.md and cinema_database.sql) by:
     ```
     $ git clone https://github.com/SobczakMateusz05/cinema-basic-selling-app
     ```
-7. Move to app files using
+7. Move to app files using:
 
     ```
     $ cd cinema-basic-selling-app
@@ -82,7 +82,7 @@ I recommend **Linux system**. This quide was made for **Ubuntu Server 22.04** li
     ```
     $ npm run build
     ```
-10. After build test connection using
+10. After build test connection using:
 
     ```
     $ npm start
@@ -126,7 +126,7 @@ I recommend **Linux system**. This quide was made for **Ubuntu Server 22.04** li
     $ pm2 restart next-app
     ```
 
-15. To make sure environment variables work build a app again by
+15. To make sure environment variables work build a app again by:
 
     ```
     $ npm run build
