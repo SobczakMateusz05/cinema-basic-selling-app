@@ -10,7 +10,7 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-    title: 'Cinema Managment',
+    title: 'Cinema Seller App',
 };
 
 export default function RootLayout({
