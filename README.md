@@ -151,4 +151,4 @@ If you want to use production hosting for your application but don't have HTTPS 
 
 ## Gallery
 
-<img alt="Login screen" title="Login screen" src="http://imgur.com/GUAUAIL.png" width="400">
+<img alt="Login screen" title="Login screen" src="http://imgur.com/GUAUAIL.png" width="400"><img alt="Add user screen" title="Add user screen" src="http://imgur.com/viBRhScpng" width="400">
