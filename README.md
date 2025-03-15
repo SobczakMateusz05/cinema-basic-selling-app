@@ -1,5 +1,7 @@
 <h1 align="center"> CINEMA BASIC SELLING APP </h1> <br>
 
+Uicons by [Flaicon](https://www.flaticon.com/uicons)
+
 ## **IMPORTANT**
 
 This project will be changed to extended version in diffrent repository. This repository won't be deleted.
