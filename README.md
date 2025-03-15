@@ -1,10 +1,21 @@
 <h1 align="center"> CINEMA BASIC SELLING APP </h1> <br>
 
-## ENGLISH
-
-## IMPORTANT
+## **IMPORTANT**
 
 This project will be changed to extended version in diffrent repository. This repository won't be deleted.
+
+## Table of Contents
+
+-   [Project Assumptions](#project-assumptions)
+-   [Technology Stacl](#technology-stack)
+    -   [Languages](#languages)
+    -   [Technologies](#technologies)
+    -   [Database](#database)
+-   [System Implementation](#system-implementation)
+-   [Database Prepare](#database-prepare)
+-   [ENV File Schema](#env-file-schema)
+-   [Production Without HTTPS](#production-without-https)
+-   [Gallery](#gallery)
 
 ## Project Assumptions
 
@@ -124,7 +135,9 @@ I recommend **Linux system**. This quide was made for **Ubuntu Server 22.04** li
 ## Database Prepare
 
 Because it very simple and for school needs there no any admin panel or something like this (read [important](#important) and [Project Assumptions](#project-assumptions) ). You have to prepare database yourself.
-In database you have to add values to employees,
+
+In database you have to add values to employees, snack, snack_size, glasses_3d, film, room, showing.
+Users you can add in login menu on right top button.
 
 ## ENV File Schema
 
@@ -135,3 +148,7 @@ NODE_ENV=[development/production (production when you have HTTPS, NODE_ENV is au
 ## Production Without HTTPS
 
 If you want to use production hosting for your application but don't have HTTPS (**not recommended**), it's possible but you need to change 2 places in the code. The first change is in the `src/app/api/logout/route.ts` file on line 12, you need to change `process.env.NODE_ENV === 'production'` to `false`. The second change is in the `src/app/api/login/route.ts` file on line 60, you need to change `process.env.NODE_ENV === 'production'` to `false`. After making these changes, the application will work correctly. **If you add HTTPS in the future, you need to revert the changes!**
+
+## Gallery
+
+<img alt="Login screen" title="Login screen" src="https://imgur.com/GUAUAIL" width="400">
