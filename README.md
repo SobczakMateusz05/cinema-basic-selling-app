@@ -152,3 +152,7 @@ If you want to use production hosting for your application but don't have HTTPS 
 ## Gallery
 
 <img alt="Login screen" title="Login screen" src="http://imgur.com/GUAUAIL.png" width="400"> &nbsp; &nbsp; <img alt="Add user screen" title="Add user screen" src="http://imgur.com/d81nK4O.png" width="400">
+<br><br>
+<img alt="Main dashboard screen" title="Main dashboard screen" src="http://imgur.com/Fv29sAa.png" width="400"> &nbsp; &nbsp; <img alt="Sell ticket dashboard screen" title="Sell ticket dashboard screen" src="http://imgur.com/vG3s9GX.png" width="400">
+<br><br>
+<img alt="Sell snack dashboard screen" title="Sell snack dashboard screen" src="http://imgur.com/cPEtLAe.png" width="400"> &nbsp; &nbsp; <img alt="Sell glasses dashboard screen" title="Sell glasses dashboard screen" src="http://imgur.com/HWRMT5z.png" width="400">
