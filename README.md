@@ -9,7 +9,7 @@ This project will be changed to extended version in diffrent repository. This re
 ## Table of Contents
 
 -   [Project Assumptions](#project-assumptions)
--   [Technology Stacl](#technology-stack)
+-   [Technology Stack](#technology-stack)
     -   [Languages](#languages)
     -   [Technologies](#technologies)
     -   [Database](#database)
@@ -21,7 +21,7 @@ This project will be changed to extended version in diffrent repository. This re
 
 ## Project Assumptions
 
-This web application was created as **school project** to manage database. It very simple selling panel for each products. Application create record in special table for product in database. Database has some triggers to automatization. Created in english language (you can translate all to your own language). Appication isn't responsive for phones (read [important](#important)).
+This is a simple web application designed for selling cinema tickets and snacks. It was developed as a **school project** to demonstrate database management concepts. Application create record in special table for product in database. Database has some triggers to automatization. Created in english language (you can translate all to your own language). Appication isn't responsive for phones (read [important](#important)).
 
 ## Technology Stack
 
