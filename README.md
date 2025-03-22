@@ -1,6 +1,6 @@
 <h1 align="center"> CINEMA BASIC SELLING APP </h1> <br>
 
-Uicons by [Flaicon](https://www.flaticon.com/uicons)
+Uicons by [Flaticon](https://www.flaticon.com/uicons)
 
 ## **IMPORTANT**
 
