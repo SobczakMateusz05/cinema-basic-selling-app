@@ -4,7 +4,6 @@ import { HashPassword } from '../../../../utils/auth';
 
 const prisma = new PrismaClient();
 
-// eslint-disable-next-line import/prefer-default-export
 export async function POST(req: Request) {
     if (req.method !== 'POST') {
         return NextResponse.json({
@@ -46,6 +45,18 @@ export async function POST(req: Request) {
         return NextResponse.json({
             message: 'Server error while creating user',
             error,
+            status: 500,
+        });
+    }
+}
+
+export async function GET() {
+    try {
+        const employee = await prisma.employee.findMany();
+        return NextResponse.json({ employee, status: 200 });
+    } catch (error) {
+        return NextResponse.json({
+            message: 'Server error while fetching data',
             status: 500,
         });
     }

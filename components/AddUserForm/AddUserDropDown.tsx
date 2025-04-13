@@ -30,7 +30,12 @@ export default function AddUserDropdown({
 
     useEffect(() => {
         async function employeeFetch() {
-            const res = await fetch('api/auth/employeeFetch');
+            const res = await fetch('api/auth/register', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
             const data = await res.json();
 

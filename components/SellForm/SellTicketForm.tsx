@@ -10,6 +10,7 @@ import {
     SellTicketFormInterface,
     validateField,
     InformationInterface,
+    ShowingInformationInterface,
 } from '@/utils/forms';
 import SellFormDropdown from './SellFormDropdown';
 
@@ -31,6 +32,8 @@ export default function SellTicketForm() {
         room: null,
         seats: null,
     });
+    const [showings, setShowings] =
+        useState<ShowingInformationInterface | null>();
 
     const namePattern =
         /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż'-]{2,50}(?: [A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż'-]{2,50})?$/;
@@ -121,34 +124,46 @@ export default function SellTicketForm() {
         setButtonLoading((prev) => !prev);
     };
 
-    const showingInformation = async () => {
-        const res = await fetch('/api/sellForm/showingInformationFetch', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        const data = await res.json();
-
-        if (res.status === 401) {
-            localStorage.setItem('loggedOut', 'true');
-            redirect('/');
-        }
-
-        if (res.ok && data.status === 200) {
+    const showingInformationSet = () => {
+        if (showings) {
+            const record = showings.find(
+                (item: ShowingInformationInterface) =>
+                    item.id === formData.showing
+            );
             setInformation(() => ({
-                room: data.information.room_number,
-                seats: data.information.available_seats,
+                room: record.room_number,
+                seats: record.available_seats,
             }));
-        } else if (res.ok && data.status === 201) {
-            setStatus(() => ({
-                isSucces: false,
-                message: data.message,
-            }));
+        }
+    };
+
+    const showingInformation = async () => {
+        if (!showings) {
+            const res = await fetch('/api/sellForm/sellTicket', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await res.json();
+
+            if (res.status === 401) {
+                localStorage.setItem('loggedOut', 'true');
+                redirect('/');
+            }
+
+            if (res.ok && data.status === 200) {
+                setShowings(data.sell);
+            } else if (res.ok && data.status === 201) {
+                setStatus(() => ({
+                    isSucces: false,
+                    message: data.message,
+                }));
+            } else {
+                setError(data.message);
+            }
         } else {
-            setError(data.message);
+            showingInformationSet();
         }
     };
 
@@ -169,6 +184,11 @@ export default function SellTicketForm() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formData.showing]);
+
+    useEffect(() => {
+        showingInformationSet();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showings]);
 
     if (error) {
         return (
@@ -249,7 +269,7 @@ export default function SellTicketForm() {
                         handleSelect={handleSelect}
                         setLoading={setLoading}
                         setError={setError}
-                        apiLocation="api/sellForm/showingFetch"
+                        apiLocation="api/sellForm/sellTicket"
                         item="showing"
                         value={formData.showing}
                     />
