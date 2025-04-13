@@ -103,7 +103,7 @@ export default function SellSnackForm() {
                         handleSelect={handleSelect}
                         setLoading={setLoading}
                         setError={setError}
-                        apiLocation="api/sellForm/sellSnackFetch"
+                        apiLocation="api/sellForm/sellSnack"
                         item="snack"
                         value={formData.snack}
                     />
@@ -113,7 +113,7 @@ export default function SellSnackForm() {
                         handleSelect={handleSelect}
                         setLoading={setLoading}
                         setError={setError}
-                        apiLocation="api/sellForm/sellSnackSizeFetch"
+                        apiLocation="api/sellForm/snackSize"
                         item="size"
                         value={formData.size}
                     />

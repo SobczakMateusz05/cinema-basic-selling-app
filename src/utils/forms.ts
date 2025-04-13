@@ -49,6 +49,25 @@ export interface InformationInterface {
     seats: number | null;
 }
 
+interface FilmInterface {
+    id: number;
+    premiere: string;
+    ticket: number;
+    title: string;
+}
+
+export interface ShowingInformationInterface {
+    find(
+        arg0: (item: ShowingInformationInterface) => boolean
+    ): ShowingInformationInterface;
+    available_seats: number;
+    date: string;
+    film: FilmInterface;
+    id: number;
+    id_film: number;
+    room_number: number;
+}
+
 export const validateField = (pattern: RegExp, value: string) => {
     return pattern.test(value);
 };

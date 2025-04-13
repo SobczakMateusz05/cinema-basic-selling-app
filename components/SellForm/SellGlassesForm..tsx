@@ -101,7 +101,7 @@ export default function SellGlassesForm() {
                         handleSelect={handleSelect}
                         setLoading={setLoading}
                         setError={setError}
-                        apiLocation="api/sellForm/sellGlassesFetch"
+                        apiLocation="api/sellForm/sellGlasses"
                         item="glasses"
                         value={formData.glasses}
                     />
